@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "177570056426",
+    "firebase_url": "https://ecommerce-d48e5.firebaseio.com",
+    "project_id": "ecommerce-d48e5",
+    "storage_bucket": "ecommerce-d48e5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:177570056426:android:228e3888159dbfa0",
+        "android_client_info": {
+          "package_name": "com.imtiaz.e_commerce_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "177570056426-fj2ig099t227fpilgsomrsovr9pdakao.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.imtiaz.e_commerce_app",
+            "certificate_hash": "ed8a987ef2f3f1b03a860344102ef9fea055dd90"
+          }
+        },
+        {
+          "client_id": "177570056426-2d2tmoqjrgeo9tkblkhf708689c9drvi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBM4BYNX9SQVM9YRnVBkpUajXmwuVMDu6Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "177570056426-2d2tmoqjrgeo9tkblkhf708689c9drvi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
