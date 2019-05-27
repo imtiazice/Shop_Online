@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -25,6 +24,7 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.imtiaz.e_commerce_app.Admin.AdminMaintainProductsActivity;
 import com.imtiaz.e_commerce_app.Model.Products;
 import com.imtiaz.e_commerce_app.Prevalent.Prevalent;
 import com.imtiaz.e_commerce_app.ViewHolder.ProductViewHolder;
@@ -40,11 +40,21 @@ public class HomeActivity extends AppCompatActivity
     private RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
 
+    private String type = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        final Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        if (bundle != null){
+            type = getIntent().getExtras().get("Admin").toString();
+        }
+
+
 
         Paper.init(this);
 
@@ -60,10 +70,23 @@ public class HomeActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();*/
+
+                if (!type.equals("Admin")){
+
+                    Intent intent = new Intent(HomeActivity.this, CartActivity.class);
+                    startActivity(intent);
+
+                }
+
+
+
+
             }
         });
+
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -77,8 +100,12 @@ public class HomeActivity extends AppCompatActivity
         TextView userNameTextView = headerView.findViewById(R.id.user_profile_name);
         CircleImageView profileImageView = headerView.findViewById(R.id.user_profile_image);
 
-        userNameTextView.setText(Prevalent.currentOnlineUser.getName());
-        Picasso.get().load(Prevalent.currentOnlineUser.getImage()).placeholder(R.drawable.profile).into(profileImageView);
+        if (!type.equals("Admin")){
+            userNameTextView.setText(Prevalent.currentOnlineUser.getName());
+            Picasso.get().load(Prevalent.currentOnlineUser.getImage()).placeholder(R.drawable.profile).into(profileImageView);
+
+
+        }
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_menu);
         recyclerView.setHasFixedSize(true);
@@ -112,9 +139,22 @@ public class HomeActivity extends AppCompatActivity
                         holder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Intent intent =  new Intent(HomeActivity.this, ProductDetailsActivity.class);
-                                intent.putExtra("pid", model.getPid());
-                                startActivity(intent);
+
+                                if (type.equals("Admin")){
+
+                                    Intent intent =  new Intent(HomeActivity.this, AdminMaintainProductsActivity.class);
+                                    intent.putExtra("pid", model.getPid());
+                                    startActivity(intent);
+
+                                } else{
+
+                                    Intent intent =  new Intent(HomeActivity.this, ProductDetailsActivity.class);
+                                    intent.putExtra("pid", model.getPid());
+                                    startActivity(intent);
+
+                                }
+
+
 
 
                             }
@@ -174,23 +214,52 @@ public class HomeActivity extends AppCompatActivity
 
         if (id == R.id.nav_cart) {
 
-        } else if (id == R.id.nav_orders) {
+            if (!type.equals("Admin")){
+
+                Intent intent = new Intent(HomeActivity.this, CartActivity.class);
+                startActivity(intent);
+
+            }
+
+        } else if (id == R.id.nav_search) {
+
+            if (!type.equals("Admin")){
+
+                Intent intent = new Intent(HomeActivity.this, SearchProductsActivity.class);
+                startActivity(intent);
+
+            }
+
 
         } else if (id == R.id.nav_categories) {
 
+
+
         } else if (id == R.id.nav_settings) {
 
-            Intent intent = new Intent(HomeActivity.this, SettinsActivity.class);
-            startActivity(intent);
+            if (!type.equals("Admin")){
+
+                Intent intent = new Intent(HomeActivity.this, SettinsActivity.class);
+                startActivity(intent);
+
+            }
+
+
 
         } else if (id == R.id.nav_logout) {
 
-            Paper.book().destroy();
+            if (!type.equals("Admin")){
 
-            Intent intent = new Intent(HomeActivity.this, MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-            finish();
+                Paper.book().destroy();
+
+                Intent intent = new Intent(HomeActivity.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+
+
+            }
+
 
         }
 

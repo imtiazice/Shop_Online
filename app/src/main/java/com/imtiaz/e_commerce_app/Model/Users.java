@@ -1,17 +1,19 @@
 package com.imtiaz.e_commerce_app.Model;
 
 public class Users {
-    private String name, phone, password, image, address;
+    private String name, phone, password, image, address, question1, question2;
 
     public Users() {
     }
 
-    public Users(String name, String phone, String password, String image, String address) {
+    public Users(String name, String phone, String password, String image, String address, String question1, String question2 ) {
         this.name = name;
         this.phone = phone;
         this.password = password;
         this.image = image;
         this.address = address;
+        this.question1 = question1;
+        this.question2 = question2;
     }
 
     public String getName() {
@@ -52,5 +54,21 @@ public class Users {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getQuestion1() {
+        return question1;
+    }
+
+    public void setQuestion1(String question1) {
+        this.question1 = question1;
+    }
+
+    public String getQuestion2() {
+        return question2;
+    }
+
+    public void setQuestion2(String question2) {
+        this.question2 = question2;
     }
 }

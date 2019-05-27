@@ -1,4 +1,4 @@
-package com.imtiaz.e_commerce_app;
+package com.imtiaz.e_commerce_app.Admin;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.imtiaz.e_commerce_app.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

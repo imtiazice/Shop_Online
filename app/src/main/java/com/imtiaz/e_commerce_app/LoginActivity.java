@@ -17,6 +17,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.imtiaz.e_commerce_app.Admin.AdminCategoryActivity;
 import com.imtiaz.e_commerce_app.Model.Users;
 import com.imtiaz.e_commerce_app.Prevalent.Prevalent;
 import com.rey.material.widget.CheckBox;
@@ -28,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText InputPhoneNumber, InputPassword;
     private Button LoginButton;
     private ProgressDialog loadingBar;
-    private TextView AdminLink, NotAdminLink;
+    private TextView AdminLink, NotAdminLink, ForgetPasswordLink;
 
     private String parentDbName = "Users";
     private CheckBox chkBoxRememberMe;
@@ -44,6 +45,8 @@ public class LoginActivity extends AppCompatActivity {
         InputPhoneNumber  = (EditText) findViewById(R.id.login_phone_number_input);
         AdminLink = (TextView) findViewById(R.id.admin_panel_link);
         NotAdminLink = (TextView) findViewById(R.id.not_admin_panel_link);
+        ForgetPasswordLink = (TextView) findViewById(R.id.forget_password_link);
+
 
         loadingBar = new ProgressDialog(this);
 
@@ -55,6 +58,17 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 LoginUser();
+            }
+        });
+
+        ForgetPasswordLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(LoginActivity.this, ResetPasswordActivity.class);
+                intent.putExtra("check", "login");
+                startActivity(intent);
+
             }
         });
 
@@ -102,7 +116,8 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void AllowAccessToAccount(final String phone, final String password) {
+    private void AllowAccessToAccount(final String phone, final String password)
+    {
 
         if (chkBoxRememberMe.isChecked()){
             Paper.book().write(Prevalent.UserPhoneKey, phone);
@@ -115,11 +130,14 @@ public class LoginActivity extends AppCompatActivity {
         RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child(parentDbName).child(phone).exists()){
+                if (dataSnapshot.child(parentDbName).child(phone).exists())
+                {
 
                     Users usersData = dataSnapshot.child(parentDbName).child(phone).getValue(Users.class);
-                    if (usersData.getPhone().equals(phone)){
-                        if (usersData.getPassword().equals(password)){
+                    if (usersData.getPhone().equals(phone))
+                    {
+                        if (usersData.getPassword().equals(password))
+                        {
                             /*Toast.makeText(LoginActivity.this,"logged in with" + phone+ " number successfully.", Toast.LENGTH_SHORT).show();
                             loadingBar.dismiss();
 
@@ -154,7 +172,8 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
 
-                } else {
+                } else
+                {
                     Toast.makeText(LoginActivity.this,"Account with this " + phone+ " number do not exists.", Toast.LENGTH_SHORT).show();
                     loadingBar.dismiss();
                 }
